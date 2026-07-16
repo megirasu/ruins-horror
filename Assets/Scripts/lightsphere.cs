@@ -34,11 +34,16 @@ public class lightsphere : MonoBehaviour
             currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, acceleration * Time.deltaTime);
         }
 
-        transform.position += transform.forward * currentSpeed * Time.deltaTime;
-
-        //上下の動き
-        float newY = startY + (Mathf.Sin(Time.time * bobbingSpeed) * bobbingHeight);
         
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+        //上下の動きと段差を登らすためのやつ
+        Vector3 pos = transform.position + transform.forward * currentSpeed * Time.deltaTime;
+        float height = 1.5f;
+        if (Physics.Raycast(pos + Vector3.up * 5f, Vector3.down, out RaycastHit hit, 20f))
+        {
+            float groundY = hit.point.y;
+            pos.y = groundY + Height + Mathf.Sin(Time.time * bobbingSpeed) * Height;
+        } 
+        
+        transform.position = pos;
     }
 }
