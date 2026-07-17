@@ -11,6 +11,7 @@ public class lightsphere : MonoBehaviour
     // 上下するための変数
     [SerializeField] private float bobbingSpeed = 2f;
     [SerializeField] private float bobbingHeight = 0.3f;
+    [SerializeField] private float hoverHeight = 1.5f;
 
     private float currentSpeed = 0f;//速さ
     private float startY; //記録
@@ -37,11 +38,11 @@ public class lightsphere : MonoBehaviour
         
         //上下の動きと段差を登らすためのやつ
         Vector3 pos = transform.position + transform.forward * currentSpeed * Time.deltaTime;
-        float height = 1.5f;
-        if (Physics.Raycast(pos + Vector3.up * 5f, Vector3.down, out RaycastHit hit, 20f))
-        {
+
+        if (Physics.Raycast(pos , Vector3.down, out RaycastHit hit, 20f))
+        {z
             float groundY = hit.point.y;
-            pos.y = groundY + Height + Mathf.Sin(Time.time * bobbingSpeed) * Height;
+            pos.y = groundY + hoverHeight + Mathf.Sin(Time.time * bobbingSpeed) * bobbingHeight;
         } 
         
         transform.position = pos;
