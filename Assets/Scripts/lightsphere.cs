@@ -40,7 +40,7 @@ public class lightsphere : MonoBehaviour
         Vector3 pos = transform.position + transform.forward * currentSpeed * Time.deltaTime;
 
         if (Physics.Raycast(pos , Vector3.down, out RaycastHit hit, 20f))
-        {z
+        {
             float groundY = hit.point.y;
             pos.y = groundY + hoverHeight + Mathf.Sin(Time.time * bobbingSpeed) * bobbingHeight;
         } 
